@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI計算機</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        h1 {
+            margin: 0;
+            text-align: center;
+        }
+
+        .main {
+            width: 100%;
+            height: 100vh;
+            background-color: cornsilk;
+
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .gameCanvas {
+            width: 600px;
+            height: 400px;
+            background-color: rgb(160, 160, 160);
+            border: 5px solid gray;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .d-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .justify-content-around {
+            justify-content: space-around;
+        }
+
+        .w-100 {
+            width: 100%;
+        }
+
+        span {
+            font-size: 20px;
+            font-weight: 900;
+            margin-right: 10px;
+            width: 150px;
+        }
+
+        input {
+            width: 400px;
+            height: 35px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .btn {
+            width: 200px;
+            height: 50px;
+            background-color: ivory;
+            text-align: center;
+            line-height: 50px;
+            font-size: 24px;
+            font-weight: 900;
+            transition: .3s;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: rgb(26, 26, 24);
+            color: white;
+        }
+
+        .btn:active {
+            transition: .1s;
+            background-color: red;
+            color: white;
+        }
+
+        .resultCanvas {
+            width: 600px;
+            padding: 30px;
+            border: 5px solid gray;
+            border-radius: 10px;
+            opacity: 0;
+            transition: 0.5s;
+
+        }
+
+        .resultCanvas.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="gameCanvas">
+            <h1>BMI計算機</h1>
+            <div class="d-flex">
+                <span>請輸入身高(cm):</span><input id="height" type="text">
+            </div>
+            <div class="d-flex">
+                <span>請輸入體重(kg):</span><input id="weight" type="text">
+            </div>
+            <div class="d-flex justify-content-around w-100">
+                <div id="start_btn" class="btn">開始計算</div>
+                <div id="reset_btn" class="btn">重新計算</div>
+            </div>
+        </div>
+        <div class="resultCanvas">
+            <span>BMI值:</span><span id="result_BMI"></span><br>
+            <span>身體狀態:</span><span id="result_bodyStatus"></span><br>
+            <span>建議參考:</span><span id="result_suggest"></span><br>
+        </div>
+    </div>
+
+    <script>
+        var start_btn = document.querySelector("#start_btn")
+        var reset_btn = document.querySelector('#reset_btn')
+
+        var height = document.querySelector('#height')
+        var weight = document.querySelector('#weight')
+
+        var resultCanvas = document.querySelector(".resultCanvas")
+        var result_BMI = document.querySelector('#result_BMI')
+        var result_bodyStatus = document.querySelector('#result_bodyStatus')
+        var result_suggest = document.querySelector('#result_suggest')
+
+        start_btn.onclick = function () {
+            resultCanvas.classList.add('active')
+
+
+            document.getElementById('#result_BMI').innerHTML = weight / (height * height)
+
+
+
+            if (result_BMI.value < 18.5) {
+                result_bodyStatus.innerHTML = ('您的體重過輕!')
+            }
+            else if (result_BMI.value >= 18.5 && result_BMI.value < 24) {
+                result_bodyStatus.innerHTML = ('您非常健康!')
+            }
+            else if (result_BMI.value >= 24 && result_BMI.value < 27) {
+                result_bodyStatus.innerHTML = ('您的體位異常過重!')
+            }
+            else if (result_BMI.value >= 27 && result_BMI.value < 30) {
+                result_bodyStatus.innerHTML = ('您的體位輕度肥胖!')
+            }
+            else if (result_BMI.value >= 30 && result_BMI.value < 35) {
+                result_bodyStatus.innerHTML = ('您的體位中度肥胖!')
+            }
+            else if (result_BMI.value > 35 && result_BMI.value) {
+                result_bodyStatus.innerHTML = ('您的體位重度肥胖!')
+            }
+        }
+        reset_btn.onclick = function () {
+            resultCanvas.classList.add('active')
+        }
+
+
+    </script>
+</body>
+
+</html>
