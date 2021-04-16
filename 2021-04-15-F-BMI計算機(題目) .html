@@ -153,46 +153,63 @@
             // document.querySelector('#result_BMI').innerHTML = weight.value / ((height.value/100) * (height.value/100))
             // 原先在家裡的寫法是把運算出來的BMI值直接丟到 #result_BMI(的標籤)裡，也是可以執行的，但若沒有另外宣告變數，之後的BMI都要寫入 weight.value / ((height.value/100) * (height.value/100))，程式碼就會很長‧
 
-            var BMI = weight.value / Math.pow(height.value / 100, 2)
-            // 用math.pow(n,n)去做運算，運算出身高(公尺)的平方
-            // 變數運算要另外宣告一個名子
 
-            result_BMI.innerHTML = BMI.toFixed(1)
-            // toFixed()=設定取值小數點到第幾位
+            // 例外出現的處理:
+
+            // 檢查JS有沒有成功抓到標籤元素的數值
+            console.log(height.value, weight.value)
+
+            //    用or (||) 來判斷輸入框(height, weight)裡面，是否為空白值'' 、不是數字的 isNAN 、小於0的數值，六個條件只要有一個是 符合的(true) 就會執行跳出警告視窗alert()
+            if (height.value == '' || weight == '' || isNAN(weight.value) || isNAN(height.value || height < 0 || weight < 0)) {
+                alert('請輸入數值!');
 
 
-            if (BMI < 18.5) {
-                result_bodyStatus.innerHTML = '您的BMI過輕!'
-                result_suggest.innerHTML = '要多吃點了喔!'
+
+            } else {
+                var BMI = weight.value / Math.pow(height.value / 100, 2)
+                // 用math.pow(n,n)去做運算，運算出身高(公尺)的平方
+                // 變數運算要另外宣告一個名子
+
+                result_BMI.innerHTML = BMI.toFixed(1)
+                // toFixed()=設定取值小數點到第幾位
+
+
+                if (BMI < 18.5) {
+                    result_bodyStatus.innerHTML = '您的BMI過輕!'
+                    result_suggest.innerHTML = '要多吃點了喔!'
+
+                }
+                else if (BMI < 24) {
+                    result_bodyStatus.innerHTML = ('您非常健康!')
+                    result_result_suggest.innerHTML = ('哎呀~剛剛好~很健康勒!')
+                }
+                else if (BMI >= 24 && BMI < 27) {
+                    result_bodyStatus.innerHTML = ('您的體位異常過重!')
+                    result_result_suggest.innerHTML = ('太胖了哪~少吃點吧!')
+                }
+                else if (BMI >= 27 && BMI < 30) {
+                    result_bodyStatus.innerHTML = ('您的體位輕度肥胖!')
+                    result_result_suggest.innerHTML = ('肥胖的標籤了內!安ㄋㄟ母湯喔')
+                }
+                else if (BMI >= 30 && BMI < 35) {
+                    result_bodyStatus.innerHTML = ('您的體位中度肥胖!')
+                    result_result_suggest.innerHTML = ('挖靠，484看不到你自己的腳趾頭了!')
+                }
+                else if (BMI > 35 && BMI) {
+                    result_bodyStatus.innerHTML = ('您的體位重度肥胖!')
+                    result_result_suggest.innerHTML = ('重度肥胖!你確定你還能走路?')
+                }
+            }
+
+            reset_btn.onclick = function () {
+                // 把身高和體重的數值(value)清空，所以設為'' 空白的，然後將resultCanvas去除active(透明度)
+                weight.value = ''
+                height.value = ''
+                resultCanvas.classList.remove('active')
 
             }
-            else if (BMI < 24) {
-                result_bodyStatus.innerHTML = ('您非常健康!')
-                result_result_suggest.innerHTML = ('哎呀~剛剛好~很健康勒!')
-            }
-            else if (BMI >= 24 && BMI < 27) {
-                result_bodyStatus.innerHTML = ('您的體位異常過重!')
-                result_result_suggest.innerHTML = ('太胖了哪~少吃點吧!')
-            }
-            else if (BMI >= 27 && BMI < 30) {
-                result_bodyStatus.innerHTML = ('您的體位輕度肥胖!')
-                result_result_suggest.innerHTML = ('肥胖的標籤了內!安ㄋㄟ母湯喔')
-            }
-            else if (BMI >= 30 && BMI < 35) {
-                result_bodyStatus.innerHTML = ('您的體位中度肥胖!')
-                result_result_suggest.innerHTML = ('挖靠，484看不到你自己的腳趾頭了!')
-            }
-            else if (BMI > 35 && BMI) {
-                result_bodyStatus.innerHTML = ('您的體位重度肥胖!')
-                result_result_suggest.innerHTML = ('重度肥胖!你確定你還能走路?')
-            }
-        }
 
-        reset_btn.onclick = function () {
-            // 把身高和體重的數值(value)清空，所以設為'' 空白的，然後將resultCanvas去除active(透明度)
-            weight.value = ''
-            height.value = ''
-            resultCanvas.classList.remove('active')
+
 
         }
 
