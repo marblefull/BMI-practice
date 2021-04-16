@@ -160,6 +160,7 @@
             console.log(height.value, weight.value)
 
             //    用or (||) 來判斷輸入框(height, weight)裡面，是否為空白值'' 、不是數字的 isNAN 、小於0的數值，六個條件只要有一個是 符合的(true) 就會執行跳出警告視窗alert()
+            // = 一個等於是直接給數值，== 兩個等於才會是判斷式
             if (height.value == '' || weight == '' || isNAN(weight.value) || isNAN(height.value || height < 0 || weight < 0)) {
                 alert('請輸入數值!');
 
